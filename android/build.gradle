@@ -1,16 +1,3 @@
-buildscript {
-    ext.kotlin_version = '1.3.50'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
 allprojects {
     repositories {
         google()
@@ -21,9 +8,20 @@ allprojects {
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-    project.evaluationDependsOn(':app')
 }
 
-task clean(type: Delete) {
+subprojects { subproject ->
+    subproject.plugins.withId("com.android.library") {
+        def androidExtension = subproject.extensions.findByName("android")
+        if (androidExtension != null && androidExtension.hasProperty("namespace")) {
+            def currentNamespace = androidExtension.namespace
+            if (currentNamespace == null || currentNamespace.toString().trim().isEmpty()) {
+                androidExtension.namespace = "com.abamerceria.${subproject.name.replace('-', '_')}"
+            }
+        }
+    }
+}
+
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

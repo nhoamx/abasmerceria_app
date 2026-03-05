@@ -8,7 +8,7 @@ import 'package:merceria_app/productos_data.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_barcode_scanner_plus/flutter_barcode_scanner_plus.dart';
 
 void main() {
   runApp(MyApp());

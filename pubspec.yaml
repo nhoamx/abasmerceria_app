@@ -29,7 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_barcode_scanner:
+  flutter_barcode_scanner_plus:
   http:
   curved_navigation_bar:
   flutter_html:

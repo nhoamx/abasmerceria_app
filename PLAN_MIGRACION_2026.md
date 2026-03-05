@@ -42,21 +42,21 @@ Objetivo: actualizar la app existente para publicacion en App Store y Play Store
   Tarea: Validar estado base
   Descripcion: Ejecutar `flutter clean`, `flutter pub get`, `flutter analyze` y `flutter test`; registrar resultados en el documento de migracion. Resultado actual de desbloqueo: `flutter test` en verde y `flutter analyze --no-fatal-infos` sin errores ni warnings bloqueantes.
 
-- [ ] Fase: 2 - Actualizacion Android (Play Store)
+- [x] Fase: 2 - Actualizacion Android (Play Store)
   Tarea: Migrar toolchain Android
-  Descripcion: Actualizar Gradle wrapper, Android Gradle Plugin, Kotlin y configuracion de plugins Flutter a formato moderno compatible con 2026.
+  Descripcion: Actualizar Gradle wrapper, Android Gradle Plugin, Kotlin y configuracion de plugins Flutter a formato moderno compatible con 2026. Aplicado: Gradle 8.7, AGP 8.6.1, Kotlin 2.1.0 y migracion a plugin DSL de Flutter/Android.
 
-- [ ] Fase: 2 - Actualizacion Android (Play Store)
+- [x] Fase: 2 - Actualizacion Android (Play Store)
   Tarea: Subir niveles de SDK
-  Descripcion: Ajustar `compileSdkVersion`, `targetSdkVersion` y revisar `minSdkVersion` segun requisitos actuales de Play y de plugins.
+  Descripcion: Ajustar `compileSdkVersion`, `targetSdkVersion` y revisar `minSdkVersion` segun requisitos actuales de Play y de plugins. Aplicado: `compileSdk 36`, `targetSdkVersion 36`, `minSdkVersion flutter.minSdkVersion`.
 
-- [ ] Fase: 2 - Actualizacion Android (Play Store)
+- [x] Fase: 2 - Actualizacion Android (Play Store)
   Tarea: Modernizar Java/Kotlin
-  Descripcion: Migrar de Java/Kotlin 1.8 a version recomendada por stack actual (incluyendo ajustes de `jvmTarget` y compatibilidad de plugins).
+  Descripcion: Migrar de Java/Kotlin 1.8 a version recomendada por stack actual (incluyendo ajustes de `jvmTarget` y compatibilidad de plugins). Aplicado: Java 17 y `jvmTarget = '17'`.
 
-- [ ] Fase: 2 - Actualizacion Android (Play Store)
+- [x] Fase: 2 - Actualizacion Android (Play Store)
   Tarea: Verificar manifiesto y recursos
-  Descripcion: Revisar `AndroidManifest.xml`, permisos, nombre de icono (`launcger_icon`) y configuracion release para evitar fallos de build/publicacion.
+  Descripcion: Revisar `AndroidManifest.xml`, permisos, nombre de icono (`launcger_icon`) y configuracion release para evitar fallos de build/publicacion. Aplicado: icono normalizado a `@mipmap/ic_launcher` y `android:exported="true"` en `MainActivity`.
 
 - [ ] Fase: 3 - Actualizacion iOS (App Store)
   Tarea: Elevar deployment target
