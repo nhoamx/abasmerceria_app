@@ -26,13 +26,13 @@ Objetivo: actualizar la app existente para publicacion en App Store y Play Store
   Tarea: Congelar baseline
   Descripcion: Se creo y publico el tag `phase0-baseline` sobre el commit `10ae89d`.
 
-- [ ] Fase: 1 - Desbloqueo de compilacion
+- [x] Fase: 1 - Desbloqueo de compilacion
   Tarea: Corregir API removida en botones
-  Descripcion: Reemplazar `primary:` en `ElevatedButton.styleFrom(...)` por API vigente (`backgroundColor`) en pantallas afectadas.
+  Descripcion: Reemplazar `primary:` en `ElevatedButton.styleFrom(...)` por API vigente (`backgroundColor`) en pantallas afectadas. Aplicado en `lib/views/product_check.dart` y `lib/views/support.dart`.
 
-- [ ] Fase: 1 - Desbloqueo de compilacion
+- [x] Fase: 1 - Desbloqueo de compilacion
   Tarea: Resolver registrant web obsoleto
-  Descripcion: Eliminar o mover fuera de `lib/` el archivo `generated_plugin_registrant.dart` que rompe analisis por imports inexistentes.
+  Descripcion: Eliminar o mover fuera de `lib/` el archivo `generated_plugin_registrant.dart` que rompe analisis por imports inexistentes. Eliminado por no requerir soporte web.
 
 - [ ] Fase: 1 - Desbloqueo de compilacion
   Tarea: Normalizar imports y warnings criticos

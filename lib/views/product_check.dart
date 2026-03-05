@@ -127,7 +127,8 @@ class _ProductCheckState extends State<ProductCheck> {
                 },
                 child: const Text('Escanea un producto'),
                 style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(300, 60), primary: Colors.black54),
+                    fixedSize: const Size(300, 60),
+                    backgroundColor: Colors.black54),
               ),
             ),
           ],

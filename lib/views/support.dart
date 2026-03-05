@@ -182,7 +182,7 @@ class _ContactFormState extends State<ContactForm> {
         },
         child: const Text('Enviar sugerencia'),
         style: ElevatedButton.styleFrom(
-            fixedSize: const Size(300, 60), primary: Colors.black54),
+            fixedSize: const Size(300, 60), backgroundColor: Colors.black54),
       ),
     );
 
