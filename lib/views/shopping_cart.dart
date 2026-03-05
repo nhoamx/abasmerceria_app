@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:merceria_app/ui/card-store.dart';
-import 'package:merceria_app/ui/card.dart';
 import 'package:merceria_app/variables.dart';
 
 class ShoppingCart extends StatefulWidget {
@@ -17,7 +16,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
       appBar: AppBar(
         title: totalProductos == 0
             ? const Text("Carrito de compras")
-            : Text("Carrito de compras | Total: \$${totalProductos}"),
+            : Text("Carrito de compras | Total: \$$totalProductos"),
         backgroundColor: Colors.black,
       ),
       body: productosDatos.isEmpty

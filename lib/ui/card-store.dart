@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:merceria_app/variables.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class CardStore extends StatefulWidget {
-  String id,
-      lista1,
-      lista2,
-      lista3,
-      desc,
-      numero,
-      tamano,
-      colores,
-      unidad,
-      empaque,
-      sku,
-      opcion;
+  final String id;
+  final String lista1;
+  final String lista2;
+  final String lista3;
+  final String desc;
+  final String numero;
+  final String tamano;
+  final String colores;
+  final String unidad;
+  final String empaque;
+  final String sku;
+  final String opcion;
+
   CardStore(
-      {required this.id,
+      {Key? key,
+      required this.id,
       required this.lista1,
       required this.lista2,
       required this.lista3,
@@ -28,9 +29,9 @@ class CardStore extends StatefulWidget {
       required this.unidad,
       required this.empaque,
       required this.sku,
-      required this.opcion});
+      required this.opcion})
+      : super(key: key);
 
-  String? texto;
   @override
   State<CardStore> createState() => _CardStoreState();
 }

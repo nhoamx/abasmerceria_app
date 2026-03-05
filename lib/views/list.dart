@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:merceria_app/card.dart';
@@ -39,7 +37,7 @@ class _MyAppState extends State<MyApp> {
         headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
-      List jsonResponse = jsonDecode(response.body);
+      jsonDecode(response.body);
       // var userData = Product.fromJson(jsonResponse[0]);
     } else {
       // debugPrint("Error");

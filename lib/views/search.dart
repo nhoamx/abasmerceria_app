@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:merceria_app/model/product.dart';
 import 'package:merceria_app/ui/card-store.dart';
-import 'package:merceria_app/ui/card.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);

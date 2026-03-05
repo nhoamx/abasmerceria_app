@@ -34,13 +34,13 @@ Objetivo: actualizar la app existente para publicacion en App Store y Play Store
   Tarea: Resolver registrant web obsoleto
   Descripcion: Eliminar o mover fuera de `lib/` el archivo `generated_plugin_registrant.dart` que rompe analisis por imports inexistentes. Eliminado por no requerir soporte web.
 
-- [ ] Fase: 1 - Desbloqueo de compilacion
+- [x] Fase: 1 - Desbloqueo de compilacion
   Tarea: Normalizar imports y warnings criticos
-  Descripcion: Limpiar imports no usados y warnings que bloqueen CI, manteniendo cambios acotados para recuperar compilacion estable.
+  Descripcion: Limpiar imports no usados y warnings que bloqueen CI, manteniendo cambios acotados para recuperar compilacion estable. Se eliminaron imports/variables no usadas, se ajusto inmutabilidad en widgets criticos y se actualizo el test de plantilla para el flujo real de la app.
 
-- [ ] Fase: 1 - Desbloqueo de compilacion
+- [x] Fase: 1 - Desbloqueo de compilacion
   Tarea: Validar estado base
-  Descripcion: Ejecutar `flutter clean`, `flutter pub get`, `flutter analyze` y `flutter test`; registrar resultados en el documento de migracion.
+  Descripcion: Ejecutar `flutter clean`, `flutter pub get`, `flutter analyze` y `flutter test`; registrar resultados en el documento de migracion. Resultado actual de desbloqueo: `flutter test` en verde y `flutter analyze --no-fatal-infos` sin errores ni warnings bloqueantes.
 
 - [ ] Fase: 2 - Actualizacion Android (Play Store)
   Tarea: Migrar toolchain Android

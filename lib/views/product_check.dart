@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:merceria_app/model/product.dart';
 import 'package:merceria_app/ui/card-store.dart';
-import 'package:merceria_app/ui/card.dart';
 
 class ProductCheck extends StatefulWidget {
   const ProductCheck({Key? key}) : super(key: key);

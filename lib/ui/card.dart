@@ -4,17 +4,25 @@ import 'package:merceria_app/variables.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class CardScan extends StatefulWidget {
-  String id, name, description, image, price, sku, opcion;
+  final String id;
+  final String name;
+  final String description;
+  final String image;
+  final String price;
+  final String sku;
+  final String opcion;
+
   CardScan(
-      {required this.id,
+      {Key? key,
+      required this.id,
       required this.name,
       required this.description,
       required this.image,
       required this.price,
       required this.sku,
-      required this.opcion});
+      required this.opcion})
+      : super(key: key);
 
-  String? texto;
   @override
   _CardScanState createState() => _CardScanState();
 }

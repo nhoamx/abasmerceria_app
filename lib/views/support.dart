@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:merceria_app/model/correo.dart';
 import 'package:merceria_app/ui/alert.dart';
-import 'package:merceria_app/ui/card.dart';
 
 class SupportPage extends StatelessWidget {
   const SupportPage({Key? key}) : super(key: key);
