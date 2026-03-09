@@ -36,12 +36,12 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             children: [
               Text(
-                'Inicio rapido',
+                'Abastecedora de mercerias',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
               Text(
-                'Busca articulos por escaner o por nombre/SKU.',
+                'Consulta precio y detalle de productos de forma rapida.',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: 20),
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'Selecciona como quieres consultar el producto.',
+                      'Selecciona el metodo de busqueda que prefieras.',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 16),
@@ -111,35 +111,19 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: Text(
-                        'Centro de ayuda',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ),
-                    const Icon(Icons.arrow_forward_ios_rounded, size: 16),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 12),
-              AppCardBase(
-                onTap: () => Navigator.pushNamed(context, AppRoutes.cart),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 42,
-                      height: 42,
-                      decoration: BoxDecoration(
-                        color: Colors.red.withOpacity(0.12),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(Icons.shopping_cart_outlined,
-                          color: Colors.red),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        'Carrito final',
-                        style: Theme.of(context).textTheme.titleLarge,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Centro de ayuda',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Resuelve dudas y envia sugerencias al equipo.',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
                       ),
                     ),
                     const Icon(Icons.arrow_forward_ios_rounded, size: 16),

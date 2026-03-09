@@ -29,7 +29,7 @@ class AppBottomNav extends StatelessWidget {
         NavigationDestination(
           icon: Icon(Icons.workspace_premium_outlined),
           selectedIcon: Icon(Icons.workspace_premium),
-          label: 'Cliente',
+          label: 'Cliente preferencial',
         ),
       ],
     );
