@@ -14,7 +14,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    final Color surface = Theme.of(context).scaffoldBackgroundColor;
+    final Color surface = Theme.of(context).cardColor;
     final Color border = Theme.of(context).dividerColor;
 
     return AppBar(

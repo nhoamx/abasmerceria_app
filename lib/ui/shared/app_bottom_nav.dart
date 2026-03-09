@@ -20,9 +20,7 @@ class AppBottomNav extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark
-            ? AppColors.darkSurface.withValues(alpha: 0.95)
-            : AppColors.lightSurface.withValues(alpha: 0.95),
+        color: Theme.of(context).cardColor,
         border: Border(
           top: BorderSide(color: Theme.of(context).dividerColor),
         ),

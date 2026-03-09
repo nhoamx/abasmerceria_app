@@ -39,7 +39,7 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         centerTitle: false,
         elevation: 0,
-        backgroundColor: AppColors.lightBackground,
+        backgroundColor: AppColors.lightSurface,
         foregroundColor: AppColors.lightTextPrimary,
       ),
       textTheme: const TextTheme(
@@ -117,7 +117,7 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         centerTitle: false,
         elevation: 0,
-        backgroundColor: AppColors.darkBackground,
+        backgroundColor: AppColors.darkSurface,
         foregroundColor: AppColors.darkTextPrimary,
       ),
       textTheme: const TextTheme(
