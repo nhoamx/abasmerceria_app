@@ -189,16 +189,12 @@ class PromoCodeCard extends StatelessWidget {
 class CartSummaryCard extends StatelessWidget {
   final int itemCount;
   final double subtotal;
-  final double discount;
-  final double taxes;
   final double total;
 
   const CartSummaryCard({
     Key? key,
     required this.itemCount,
     required this.subtotal,
-    required this.discount,
-    required this.taxes,
     required this.total,
   }) : super(key: key);
 
@@ -229,10 +225,6 @@ class CartSummaryCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _SummaryRow(label: 'Subtotal ($itemCount articulos)', value: subtotal),
-          const SizedBox(height: 8),
-          _SummaryRow(label: 'Descuento preferencial', value: -discount),
-          const SizedBox(height: 8),
-          _SummaryRow(label: 'Impuestos (IVA 16%)', value: taxes),
           const SizedBox(height: 12),
           Divider(color: Theme.of(context).dividerColor),
           const SizedBox(height: 8),

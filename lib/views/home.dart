@@ -38,13 +38,13 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: AppBottomNav(currentIndex: 0, onTap: _onBottomTap),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+          padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
           child: ListView(
             children: [
               Text(
                 'Hola, Bienvenido',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontSize: 28,
+                      fontSize: 27,
                       fontWeight: FontWeight.w800,
                     ),
               ),
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                       color: textSecondary,
                     ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 24),
               AppCardBase(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -63,12 +63,12 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 120,
+                      height: 112,
                       decoration: BoxDecoration(
                         color: isDark
                             ? AppColors.darkLayer
                             : AppColors.lightSurfaceMuted,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(10),
                         border:
                             Border.all(color: Theme.of(context).dividerColor),
                       ),
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     Text(
                       'Buscar producto',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontSize: 22,
+                            fontSize: 21,
                           ),
                     ),
                     const SizedBox(height: 16),

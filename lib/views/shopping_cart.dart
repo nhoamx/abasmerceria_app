@@ -71,16 +71,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
     return sum;
   }
 
-  double get _discount {
-    return 0;
-  }
-
-  double get _taxes {
-    return _subtotal * 0.16;
-  }
-
   double get _total {
-    return (_subtotal - _discount) + _taxes;
+    return _subtotal;
   }
 
   int get _itemsCount {
@@ -115,6 +107,10 @@ class _ShoppingCartState extends State<ShoppingCart> {
         ),
         actions: const [
           Padding(
+            padding: EdgeInsets.only(right: 4),
+            child: Icon(Icons.inventory_2_outlined),
+          ),
+          Padding(
             padding: EdgeInsets.only(right: 8),
             child: Icon(Icons.more_vert),
           ),
@@ -148,7 +144,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
               children: [
                 Expanded(
                   child: ListView(
-                    padding: const EdgeInsets.fromLTRB(16, 20, 16, 8),
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                     children: [
                       ...productosDatos.map((item) {
                         final id = (item['id'] ?? '').toString();
@@ -189,8 +185,6 @@ class _ShoppingCartState extends State<ShoppingCart> {
                 CartSummaryCard(
                   itemCount: _itemsCount,
                   subtotal: _subtotal,
-                  discount: _discount,
-                  taxes: _taxes,
                   total: _total,
                 ),
               ],
