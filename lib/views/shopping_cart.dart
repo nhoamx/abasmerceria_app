@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:merceria_app/ui/card-store.dart';
+import 'package:merceria_app/navigation/app_routes.dart';
+import 'package:merceria_app/ui/shared/app_bottom_nav.dart';
+import 'package:merceria_app/ui/shared/cart_components.dart';
 import 'package:merceria_app/variables.dart';
 
 class ShoppingCart extends StatefulWidget {
@@ -10,67 +12,188 @@ class ShoppingCart extends StatefulWidget {
 }
 
 class _ShoppingCartState extends State<ShoppingCart> {
+  final TextEditingController _promoController = TextEditingController();
+  final Map<String, int> _quantities = {};
+
+  @override
+  void initState() {
+    super.initState();
+    for (final item in productosDatos) {
+      final id = (item['id'] ?? '').toString();
+      if (id.isNotEmpty) {
+        _quantities[id] = (item['cantidad'] as int?) ?? 1;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _promoController.dispose();
+    super.dispose();
+  }
+
+  double _priceValue(dynamic raw) {
+    final text = (raw ?? '').toString().trim().replaceAll(',', '.');
+    return double.tryParse(text) ?? 0;
+  }
+
+  int _quantityFor(String id) => _quantities[id] ?? 1;
+
+  void _increaseQty(String id) {
+    setState(() {
+      _quantities[id] = _quantityFor(id) + 1;
+    });
+  }
+
+  void _decreaseQty(String id) {
+    final current = _quantityFor(id);
+    if (current <= 1) return;
+    setState(() {
+      _quantities[id] = current - 1;
+    });
+  }
+
+  void _removeItem(String id) {
+    setState(() {
+      productosDatos.removeWhere((item) => (item['id'] ?? '').toString() == id);
+      _quantities.remove(id);
+    });
+  }
+
+  double get _subtotal {
+    double sum = 0;
+    for (final item in productosDatos) {
+      final id = (item['id'] ?? '').toString();
+      final qty = _quantityFor(id);
+      final price = _priceValue(item['lista2']);
+      sum += price * qty;
+    }
+    return sum;
+  }
+
+  double get _discount {
+    return 0;
+  }
+
+  double get _taxes {
+    return _subtotal * 0.16;
+  }
+
+  double get _total {
+    return (_subtotal - _discount) + _taxes;
+  }
+
+  int get _itemsCount {
+    int count = 0;
+    for (final item in productosDatos) {
+      final id = (item['id'] ?? '').toString();
+      count += _quantityFor(id);
+    }
+    return count;
+  }
+
+  void _onBottomTap(int index) {
+    if (index == 0) {
+      Navigator.pushNamed(context, AppRoutes.home);
+      return;
+    }
+    if (index == 1) {
+      Navigator.pushNamed(context, AppRoutes.search);
+      return;
+    }
+    Navigator.pushNamed(context, AppRoutes.preferential);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: totalProductos == 0
-            ? const Text("Carrito de compras")
-            : Text("Carrito de compras | Total: \$$totalProductos"),
-        backgroundColor: Colors.black,
+        title: const Text('Mi Carrito'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 8),
+            child: Icon(Icons.more_vert),
+          ),
+        ],
       ),
+      bottomNavigationBar: AppBottomNav(currentIndex: 0, onTap: _onBottomTap),
       body: productosDatos.isEmpty
-          ? Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Carrito vacio".toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black,
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.shopping_cart_outlined, size: 48),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Carrito vacio',
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                  ),
-                  const Text(
-                    "Escanea un producto o búscalo para agregarlo al carrito.",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black45,
+                    const SizedBox(height: 8),
+                    Text(
+                      'Escanea un producto o buscalo para agregarlo al carrito.',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
-          : ListView.builder(
-              itemCount: productosDatos.length,
-              itemBuilder: (context, index) {
-                // debugPrint(productosDatos[index].toString());
-                // return CardScan(
-                //     id: productosDatos[index]["id"],
-                //     name: productosDatos[index]["name"],
-                //     description: productosDatos[index]["description"],
-                //     image: productosDatos[index]["image"],
-                //     price: productosDatos[index]["price"],
-                //     sku: productosDatos[index]["sku"],
-                //     opcion: "1");
-                return CardStore(
-                    id: productosDatos[index]["id"],
-                    lista1: productosDatos[index]["lista1"],
-                    lista2: productosDatos[index]["lista2"],
-                    lista3: productosDatos[index]["lista3"],
-                    desc: productosDatos[index]["desc"],
-                    numero: productosDatos[index]["numero"],
-                    tamano: productosDatos[index]["tamano"],
-                    colores: productosDatos[index]["colores"],
-                    unidad: productosDatos[index]["unidad"],
-                    empaque: productosDatos[index]["empaque"],
-                    sku: productosDatos[index]["sku"],
-                    opcion: "1");
-              },
+          : Column(
+              children: [
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.fromLTRB(16, 20, 16, 8),
+                    children: [
+                      ...productosDatos.map((item) {
+                        final id = (item['id'] ?? '').toString();
+                        final title = (item['desc'] ?? 'Producto sin descripcion').toString();
+                        final ref = (item['sku'] ?? '-').toString();
+                        final finalPrice = _priceValue(item['lista2']);
+                        final originalPrice =
+                          finalPrice == 0 ? 0.0 : (finalPrice * 1.2).toDouble();
+
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: CartItemCard(
+                            title: title,
+                            reference: ref,
+                            originalPrice: originalPrice,
+                            finalPrice: finalPrice,
+                            quantity: _quantityFor(id),
+                            onRemove: () => _removeItem(id),
+                            onDecrease: () => _decreaseQty(id),
+                            onIncrease: () => _increaseQty(id),
+                          ),
+                        );
+                      }).toList(),
+                      const SizedBox(height: 4),
+                      PromoCodeCard(
+                        controller: _promoController,
+                        onApply: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Codigo promocional aplicado proximamente.'),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                CartSummaryCard(
+                  itemCount: _itemsCount,
+                  subtotal: _subtotal,
+                  discount: _discount,
+                  taxes: _taxes,
+                  total: _total,
+                ),
+              ],
             ),
     );
   }
