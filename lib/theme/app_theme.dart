@@ -17,6 +17,7 @@ class AppColors {
   static const Color darkTextPrimary = Color(0xFFF2F4F7);
   static const Color darkTextSecondary = Color(0xFFCBD5E1);
   static const Color darkBorder = Color(0xFF344054);
+  static const Color darkLayer = Color(0xFF111827);
 }
 
 class AppTheme {
@@ -26,6 +27,11 @@ class AppTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.accent,
         brightness: Brightness.light,
+      ).copyWith(
+        primary: AppColors.accent,
+        onPrimary: Colors.white,
+        surface: AppColors.lightSurface,
+        onSurface: AppColors.lightTextPrimary,
       ),
       scaffoldBackgroundColor: AppColors.lightBackground,
       cardColor: AppColors.lightSurface,
@@ -99,6 +105,11 @@ class AppTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.accent,
         brightness: Brightness.dark,
+      ).copyWith(
+        primary: AppColors.accent,
+        onPrimary: Colors.white,
+        surface: AppColors.darkSurface,
+        onSurface: AppColors.darkTextPrimary,
       ),
       scaffoldBackgroundColor: AppColors.darkBackground,
       cardColor: AppColors.darkSurface,

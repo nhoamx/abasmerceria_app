@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:merceria_app/navigation/app_routes.dart';
+import 'package:merceria_app/theme/app_theme.dart';
 import 'package:merceria_app/theme/theme_mode_controller.dart';
 import 'package:merceria_app/variables.dart';
 
@@ -42,12 +43,14 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
                   top: 8,
                   right: 8,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(999),
                     ),
-                    constraints: const BoxConstraints(minWidth: 16, minHeight: 14),
+                    constraints:
+                        const BoxConstraints(minWidth: 16, minHeight: 14),
                     child: Text(
                       '${productosDatos.length}',
                       textAlign: TextAlign.center,
@@ -85,9 +88,14 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color:
-                    isDark ? const Color(0xFF1F2937) : const Color(0xFFF1F5F9),
+                    isDark ? AppColors.darkLayer : AppColors.lightSurfaceMuted,
               ),
-              child: const Icon(Icons.account_circle_outlined),
+              child: Icon(
+                Icons.account_circle_outlined,
+                color: isDark
+                    ? AppColors.darkTextSecondary
+                    : AppColors.lightTextSecondary,
+              ),
             ),
           ),
         ),

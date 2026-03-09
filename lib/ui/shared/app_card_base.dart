@@ -15,6 +15,7 @@ class AppCardBase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final radius = BorderRadius.circular(20);
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Material(
       color: Theme.of(context).cardColor,
@@ -27,9 +28,9 @@ class AppCardBase extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: radius,
             border: Border.all(color: Theme.of(context).dividerColor),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Color(0x14000000),
+                color: isDark ? Color(0x29000000) : Color(0x14000000),
                 blurRadius: 12,
                 offset: Offset(0, 6),
               ),

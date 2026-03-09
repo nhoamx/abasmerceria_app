@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:merceria_app/theme/app_theme.dart';
 
 class AppBottomNav extends StatelessWidget {
   final int currentIndex;
@@ -15,11 +16,13 @@ class AppBottomNav extends StatelessWidget {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     final Color activeColor = Theme.of(context).colorScheme.primary;
     final Color inactiveColor =
-        isDark ? const Color(0xFF94A3B8) : const Color(0xFF667085);
+        isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary;
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xF21A202C) : const Color(0xF2FFFFFF),
+        color: isDark
+            ? AppColors.darkSurface.withValues(alpha: 0.95)
+            : AppColors.lightSurface.withValues(alpha: 0.95),
         border: Border(
           top: BorderSide(color: Theme.of(context).dividerColor),
         ),

@@ -30,6 +30,8 @@ class _HomePageState extends State<HomePage> {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     final Color textSecondary = Theme.of(context).textTheme.bodyMedium?.color ??
         (isDark ? const Color(0xFFCBD5E1) : const Color(0xFF475467));
+    final Color ctaBackground =
+        isDark ? AppColors.darkLayer : const Color(0xFF0F172A);
 
     return Scaffold(
       appBar: const AppTopBar(title: 'Abastecedora'),
@@ -63,9 +65,12 @@ class _HomePageState extends State<HomePage> {
                       width: double.infinity,
                       height: 120,
                       decoration: BoxDecoration(
-                        color: isDark ? const Color(0xFF111827) : const Color(0xFFF8FAFC),
+                        color: isDark
+                            ? AppColors.darkLayer
+                            : AppColors.lightSurfaceMuted,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Theme.of(context).dividerColor),
+                        border:
+                            Border.all(color: Theme.of(context).dividerColor),
                       ),
                       child: Center(
                         child: Column(
@@ -120,7 +125,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 16),
               Container(
                 decoration: BoxDecoration(
-                  color: isDark ? const Color(0xFF0F172A) : const Color(0xFF0F172A),
+                  color: isDark ? ctaBackground : ctaBackground,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 padding: const EdgeInsets.all(20),
@@ -144,11 +149,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(height: 10),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 6),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(999),
-                        color: AppColors.accent.withOpacity(0.18),
-                        border: Border.all(color: AppColors.accent.withOpacity(0.35)),
+                        color: AppColors.accent.withValues(alpha: 0.18),
+                        border: Border.all(
+                            color: AppColors.accent.withValues(alpha: 0.35)),
                       ),
                       child: const Text(
                         'Proximamente',
@@ -187,11 +194,13 @@ class _HomePageState extends State<HomePage> {
                       width: 56,
                       height: 56,
                       decoration: BoxDecoration(
-                        color:
-                            isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                        color: isDark
+                            ? const Color(0xFF1E293B)
+                            : const Color(0xFFF1F5F9),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.help_center, color: AppColors.accent),
+                      child: const Icon(Icons.help_center,
+                          color: AppColors.accent),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -200,14 +209,18 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             'Centro de ayuda',
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                    ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             'Asistencia y soporte',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
                                   color: textSecondary,
                                 ),
                           ),
