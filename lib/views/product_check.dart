@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:flutter_barcode_scanner_plus/flutter_barcode_scanner_plus.dart';
+import 'package:merceria_app/config/api_endpoints.dart';
 import 'package:merceria_app/model/product.dart';
 import 'package:merceria_app/ui/card-store.dart';
 
@@ -20,16 +21,23 @@ class _ProductCheckState extends State<ProductCheck> {
 
   //Fetch data from api
   Future fetchData(String sku) async {
+    final value = sku.trim();
+    if (value.isEmpty || value == 'null' || value == '-1') {
+      return null;
+    }
+
     http.Response response;
-    response = await http.get(
-        Uri.parse('https://abamerceria.clustermx.com/busqueda-sku?sku=$sku'),
+    response = await http.get(ApiEndpoints.searchProductBySku(sku: value),
         headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
-      var jsonResponse = jsonDecode(response.body);
-      if (jsonResponse.toString() == "[]") {
+      final Map<String, dynamic> jsonResponse =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      final List<dynamic> data = jsonResponse['data'] as List<dynamic>? ?? [];
+
+      if (data.isEmpty) {
       } else {
-        return Product.fromJson(jsonResponse[0]);
+        return Product.fromJson(data[0] as Map<String, dynamic>);
       }
     } else {
       // debugPrint("Error");
@@ -58,23 +66,62 @@ class _ProductCheckState extends State<ProductCheck> {
         title: const Text("Escanear producto"),
         backgroundColor: Colors.black,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFF8FAFC), Color(0xFFF1F5F9)],
+          ),
+        ),
+        child: ListView(
+          padding: const EdgeInsets.all(16),
           children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: const Color(0xFF0EA5E9), width: 1.2),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x140F172A),
+                    blurRadius: 16,
+                    offset: Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Como escanear',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF0F172A),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    '1. Coloca el codigo de barras frente a la camara.\n'
+                    '2. Asegurate de tener buena luz y enfocar el codigo.\n'
+                    '3. Al detectar el SKU se mostrara la informacion del producto.',
+                    style: TextStyle(
+                      fontSize: 15,
+                      height: 1.4,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF334155),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
             FutureBuilder<dynamic>(
                 future: fetchData('$scanResult'),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    // return CardScan(
-                    //     id: snapshot.data!.id,
-                    //     name: snapshot.data!.name,
-                    //     description: snapshot.data!.description,
-                    //     image: snapshot.data!.image,
-                    //     price: snapshot.data!.price,
-                    //     sku: snapshot.data!.sku,
-                    //     opcion: "0");
                     return CardStore(
                         id: snapshot.data!.id,
                         lista1: snapshot.data!.lista1,
@@ -88,46 +135,51 @@ class _ProductCheckState extends State<ProductCheck> {
                         empaque: snapshot.data!.empaque,
                         sku: snapshot.data!.sku,
                         opcion: "0");
-                    // return buildCard(
-                    //     snapshot.data!.id,
-                    //     snapshot.data!.name,
-                    //     snapshot.data!.description,
-                    //     snapshot.data!.image.toString(),
-                    //     snapshot.data!.price,
-                    //     snapshot.data!.sku);
-
-                    // return Text(snapshot.data!.name.toString());
                   } else if (snapshot.hasError) {
-                    return Text(
-                        'Algo salio mal, intenta escanear de nuevo o buscar el producto manualmente. Error: ${snapshot.error}');
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        'Algo salio mal, intenta escanear de nuevo o buscar manualmente. Error: ${snapshot.error}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    );
                   }
 
-                  // By default, show a loading spinner.
-                  // return const CircularProgressIndicator();
                   return Container(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: const Center(
-                        child: Text(
-                      "Escanea un producto, si no lo encuentras, puedes dar clic en la segunda opción de nuestro menu.",
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Text(
+                      'Presiona el boton para iniciar el escaneo de un producto.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black87,
+                        color: Color(0xFF334155),
                       ),
-                    )),
+                    ),
                   );
                 }),
-            Container(
-              margin: const EdgeInsets.only(top: 25.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  scanBarCode();
-                },
-                child: const Text('Escanea un producto'),
-                style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(300, 60),
-                    backgroundColor: Colors.black54),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: () {
+                scanBarCode();
+              },
+              icon: const Icon(Icons.qr_code_scanner),
+              label: const Text('Escanear ahora'),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(56),
+                backgroundColor: const Color(0xFF0F172A),
+                textStyle:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
               ),
             ),
           ],

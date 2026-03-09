@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:merceria_app/config/api_endpoints.dart';
 import 'package:merceria_app/model/product.dart';
 import 'package:merceria_app/ui/card-store.dart';
 
@@ -19,21 +20,26 @@ class _SearchPageState extends State<SearchPage> {
 
   //Fetch data from api
   Future<List<Product>> getProducts(String name) async {
+    final query = name.trim();
+    if (query.isEmpty || query == 'null') {
+      return _emptyList;
+    }
+
     http.Response response;
-    response = await http.get(
-        Uri.parse('https://abamerceria.clustermx.com/busqueda-name?name=$name'),
+    response = await http.get(ApiEndpoints.searchProducts(query: query),
         headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
-      List jsonResponse = jsonDecode(response.body);
-      if (jsonResponse.toString() == "[]") {
+      final Map<String, dynamic> jsonResponse =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      final List<dynamic> data = jsonResponse['data'] as List<dynamic>? ?? [];
+
+      if (data.isEmpty) {
         return _emptyList;
       } else {
-        // debugPrint(jsonResponse.toString());
-        return jsonResponse
+        return data
             .map((jsonResponse) => Product.fromJson(jsonResponse))
             .toList();
-        // return Product.fromJson(jsonResponse[0]);
       }
     } else {
       throw Exception('Failed to load');

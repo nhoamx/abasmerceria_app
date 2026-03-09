@@ -38,12 +38,13 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
-    String color;
-    if (json['colores'] == null) {
+    final String color;
+    if (json['colors'] == null && json['colores'] == null) {
       color = 'Sin color disponible';
     } else {
-      color = json['colores'];
+      color = (json['colors'] ?? json['colores']).toString();
     }
+
     return Product(
       // id: json['id'].toString(),
       // name: json['name'],
@@ -52,16 +53,16 @@ class Product {
       // price: json['price'],
       // sku: json['sku'],
       id: json['id'].toString(),
-      lista1: json['lista1'].toString(),
-      lista2: json['lista2'].toString(),
-      lista3: json['lista3'].toString(),
-      desc: json['desc'],
-      numero: json['numero'],
-      tamano: json['tamano'],
+      lista1: (json['price_list_1'] ?? json['lista1'] ?? '').toString(),
+      lista2: (json['price_list_2'] ?? json['lista2'] ?? '').toString(),
+      lista3: (json['price_list_3'] ?? json['lista3'] ?? '').toString(),
+      desc: (json['description'] ?? json['desc'] ?? '').toString(),
+      numero: (json['number'] ?? json['numero'] ?? '').toString(),
+      tamano: (json['size'] ?? json['tamano'] ?? '').toString(),
       colores: color,
-      unidad: json['unidad'],
-      empaque: json['empaque'],
-      sku: json['sku'],
+      unidad: (json['unit'] ?? json['unidad'] ?? '').toString(),
+      empaque: (json['packaging'] ?? json['empaque'] ?? '').toString(),
+      sku: (json['sku'] ?? '').toString(),
     );
   }
 }
