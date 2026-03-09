@@ -48,7 +48,8 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
               height: 40,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isDark ? const Color(0xFF1F2937) : const Color(0xFFF1F5F9),
+                color:
+                    isDark ? const Color(0xFF1F2937) : const Color(0xFFF1F5F9),
               ),
               child: const Icon(Icons.account_circle_outlined),
             ),

@@ -103,7 +103,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: AppCardBase(
-                      onTap: () => Navigator.pushNamed(context, AppRoutes.support),
+                      onTap: () =>
+                          Navigator.pushNamed(context, AppRoutes.support),
                       padding: const EdgeInsets.all(20),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -117,13 +118,17 @@ class _HomePageState extends State<HomePage> {
                                   : const Color(0xFFEFF6FF),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.support_agent, color: AppColors.accent),
+                            child: const Icon(Icons.support_agent,
+                                color: AppColors.accent),
                           ),
                           const SizedBox(height: 10),
                           Text(
                             'Centro de ayuda',
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
                                   fontWeight: FontWeight.w700,
                                 ),
                           ),
@@ -134,7 +139,8 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: AppCardBase(
-                      onTap: () => Navigator.pushNamed(context, AppRoutes.preferential),
+                      onTap: () =>
+                          Navigator.pushNamed(context, AppRoutes.preferential),
                       padding: const EdgeInsets.all(20),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -148,13 +154,17 @@ class _HomePageState extends State<HomePage> {
                                   : const Color(0xFFFFF4ED),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.workspace_premium, color: AppColors.warning),
+                            child: const Icon(Icons.workspace_premium,
+                                color: AppColors.warning),
                           ),
                           const SizedBox(height: 10),
                           Text(
                             'Cliente preferencial',
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
                                   fontWeight: FontWeight.w700,
                                 ),
                           ),
@@ -172,10 +182,12 @@ class _HomePageState extends State<HomePage> {
                   border: Border.all(color: Theme.of(context).dividerColor),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                 child: Row(
                   children: [
-                    const Icon(Icons.help_center_outlined, color: AppColors.accent),
+                    const Icon(Icons.help_center_outlined,
+                        color: AppColors.accent),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(

@@ -14,7 +14,8 @@ class AppBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     final Color activeColor = Theme.of(context).colorScheme.primary;
-    final Color inactiveColor = isDark ? const Color(0xFF94A3B8) : const Color(0xFF667085);
+    final Color inactiveColor =
+        isDark ? const Color(0xFF94A3B8) : const Color(0xFF667085);
 
     return Container(
       decoration: BoxDecoration(
