@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    final Color surface = Theme.of(context).cardColor;
     final Color textSecondary = Theme.of(context).textTheme.bodyMedium?.color ??
         (isDark ? const Color(0xFFCBD5E1) : const Color(0xFF475467));
 
@@ -60,6 +59,33 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Container(
+                      width: double.infinity,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: isDark ? const Color(0xFF111827) : const Color(0xFFF8FAFC),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Theme.of(context).dividerColor),
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.qr_code_scanner,
+                              color: Theme.of(context).colorScheme.primary,
+                              size: 34,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Placeholder escaner',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
                     Text(
                       'Buscar producto',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -91,114 +117,107 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 32),
-              Text(
-                'Acceso rapido',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontSize: 20,
-                    ),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppCardBase(
-                      onTap: () =>
-                          Navigator.pushNamed(context, AppRoutes.support),
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 48,
-                            height: 48,
-                            decoration: BoxDecoration(
-                              color: isDark
-                                  ? const Color(0x1F3B82F6)
-                                  : const Color(0xFFEFF6FF),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(Icons.support_agent,
-                                color: AppColors.accent),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Centro de ayuda',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: AppCardBase(
-                      onTap: () =>
-                          Navigator.pushNamed(context, AppRoutes.preferential),
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 48,
-                            height: 48,
-                            decoration: BoxDecoration(
-                              color: isDark
-                                  ? const Color(0x33B54708)
-                                  : const Color(0xFFFFF4ED),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(Icons.workspace_premium,
-                                color: AppColors.warning),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Cliente preferencial',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               Container(
-                width: double.infinity,
                 decoration: BoxDecoration(
-                  color: surface,
-                  border: Border.all(color: Theme.of(context).dividerColor),
-                  borderRadius: BorderRadius.circular(16),
+                  color: isDark ? const Color(0xFF0F172A) : const Color(0xFF0F172A),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                child: Row(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.help_center_outlined,
-                        color: AppColors.accent),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        'Centro de ayuda  Asistencia y soporte',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                    Text(
+                      'Cliente preferencial',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Beneficios exclusivos',
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: const Color(0xFFE2E8F0),
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(999),
+                        color: AppColors.accent.withOpacity(0.18),
+                        border: Border.all(color: AppColors.accent.withOpacity(0.35)),
                       ),
+                      child: const Text(
+                        'Proximamente',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Descuentos exclusivos de mayoreo y servicios de entrega prioritaria se lanzaran el proximo mes. Mantente atento.',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: const Color(0xFFCBD5E1),
+                            height: 1.35,
+                          ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
+              Text(
+                'Accesos rapidos',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontSize: 20,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              AppCardBase(
+                onTap: () => Navigator.pushNamed(context, AppRoutes.support),
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 56,
+                      height: 56,
+                      decoration: BoxDecoration(
+                        color:
+                            isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.help_center, color: AppColors.accent),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Centro de ayuda',
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Asistencia y soporte',
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: textSecondary,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
             ],
           ),
         ),

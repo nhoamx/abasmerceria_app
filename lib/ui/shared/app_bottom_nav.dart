@@ -24,7 +24,7 @@ class AppBottomNav extends StatelessWidget {
           top: BorderSide(color: Theme.of(context).dividerColor),
         ),
       ),
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 22),
+      padding: const EdgeInsets.fromLTRB(8, 4, 8, 12),
       child: SafeArea(
         top: false,
         child: Row(
@@ -97,12 +97,12 @@ class _BottomItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         onTap: () => onTap(index),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
+          padding: const EdgeInsets.symmetric(vertical: 2),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(active ? activeIcon : icon, color: color, size: 20),
-              const SizedBox(height: 2),
+              Icon(active ? activeIcon : icon, color: color, size: 19),
+              const SizedBox(height: 1),
               Text(
                 label,
                 style: TextStyle(

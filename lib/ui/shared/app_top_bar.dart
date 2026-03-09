@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:merceria_app/navigation/app_routes.dart';
 import 'package:merceria_app/theme/theme_mode_controller.dart';
+import 'package:merceria_app/variables.dart';
 
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -27,7 +29,41 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: surface,
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 12),
+          padding: const EdgeInsets.only(right: 2),
+          child: Stack(
+            children: [
+              IconButton(
+                onPressed: () => Navigator.pushNamed(context, AppRoutes.cart),
+                tooltip: 'Carrito',
+                icon: const Icon(Icons.shopping_cart_outlined),
+              ),
+              if (productosDatos.isNotEmpty)
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                    constraints: const BoxConstraints(minWidth: 16, minHeight: 14),
+                    child: Text(
+                      '${productosDatos.length}',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
           child: PopupMenuButton<String>(
             tooltip: 'Opciones',
             onSelected: (value) {
