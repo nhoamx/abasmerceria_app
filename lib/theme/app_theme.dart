@@ -7,7 +7,7 @@ class AppColors {
   static const Color lightTextPrimary = Color(0xFF101828);
   static const Color lightTextSecondary = Color(0xFF475467);
   static const Color lightBorder = Color(0xFFD0D5DD);
-  static const Color accent = Color(0xFF0A7A4D);
+  static const Color accent = Color(0xFF307DE8);
   static const Color warning = Color(0xFFB54708);
   static const Color disabled = Color(0xFF98A2B3);
 
