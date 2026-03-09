@@ -1,7 +1,6 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:merceria_app/views/home.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:merceria_app/navigation/app_routes.dart';
+import 'package:merceria_app/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,18 +14,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'AbaMerceria',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: AnimatedSplashScreen(
-        duration: 3000,
-        splash: Image.asset('assets/logo-transparente.png'),
-        splashIconSize: double.infinity,
-        nextScreen: const HomePage(),
-        splashTransition: SplashTransition.fadeTransition,
-        pageTransitionType: PageTransitionType.bottomToTop,
-        backgroundColor: Colors.black,
-      ),
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
+      initialRoute: AppRoutes.splash,
+      onGenerateRoute: onGenerateRoute,
     );
   }
 }

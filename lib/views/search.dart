@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:merceria_app/config/api_endpoints.dart';
 import 'package:merceria_app/model/product.dart';
 import 'package:merceria_app/ui/card-store.dart';
+import 'package:merceria_app/ui/shared/app_placeholders.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -50,13 +51,14 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        // The search area here
+        // Search input in the top bar keeps this screen aligned with Stitch flow.
         title: Container(
           width: double.infinity,
           height: 40,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(5)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
           child: Center(
             child: TextField(
               decoration: InputDecoration(
@@ -85,7 +87,9 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: Center(
         child: FutureBuilder<List<Product>>(
-          future: getProducts(_valueSearchBar.toString()),
+          future: _valueSearchBar == null
+              ? Future.value(_emptyList)
+              : getProducts(_valueSearchBar.toString()),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Product> producto = snapshot.data!;
@@ -147,45 +151,18 @@ class _SearchPageState extends State<SearchPage> {
                 );
               }
 
-              // return Text(snapshot.data!.name.toString());
+              return const EmptyStatePlaceholder(
+                title: 'Sin resultados',
+                message: 'Escribe un SKU o nombre para buscar productos.',
+              );
             } else if (snapshot.hasError) {
-              // debugPrint("Error");
-              return Center(
-                child: Text(
+              return ErrorPlaceholder(
+                message:
                     'Algo salio mal, intenta buscar el producto nuevamente. Error: ${snapshot.error}',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontSize: 16.0, fontWeight: FontWeight.w500)),
+                onRetry: () => setState(() {}),
               );
             }
-            // By default, show a loading spinner
-            // debugPrint("DEfault");
-            return Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Articulo no encontrado.'.toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const Text(
-                    'Escribe el nombre del articulo que te interesa buscar.',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black45,
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return const LoadingPlaceholder(label: 'Buscando productos...');
           },
         ),
       ),
