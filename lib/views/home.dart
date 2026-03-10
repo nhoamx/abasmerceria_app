@@ -34,41 +34,29 @@ class _HomePageState extends State<HomePage> {
         isDark ? AppColors.darkLayer : const Color(0xFF0F172A);
 
     return Scaffold(
-      appBar: const AppTopBar(title: 'Abastecedora'),
+      appBar: const AppTopBar(title: 'Abastecedora de Merceria'),
       bottomNavigationBar: AppBottomNav(currentIndex: 0, onTap: _onBottomTap),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
           child: ListView(
             children: [
-              Text(
-                'Hola, Bienvenido',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontSize: 27,
-                      fontWeight: FontWeight.w800,
-                    ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Selecciona una opcion para comenzar',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: textSecondary,
-                    ),
-              ),
-              const SizedBox(height: 24),
               AppCardBase(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.zero,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 112,
+                      height: 150,
                       decoration: BoxDecoration(
                         color: isDark
                             ? AppColors.darkLayer
-                            : AppColors.lightSurfaceMuted,
-                        borderRadius: BorderRadius.circular(10),
+                            : AppColors.accent.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12),
+                        ),
                         border:
                             Border.all(color: Theme.of(context).dividerColor),
                       ),
@@ -83,41 +71,54 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'Placeholder escaner',
+                              'Escanea un producto',
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Buscar producto',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontSize: 21,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Buscar producto',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  fontSize: 21,
+                                ),
                           ),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Encuentra al instante los precios y detalles de inventario buscando o escaneando el codigo de barras del articulo.',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: textSecondary,
-                            height: 1.35,
+                          const SizedBox(height: 16),
+                          Text(
+                            'Encuentra al instante los precios y detalles de inventario buscando o escaneando el codigo de barras del articulo.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: textSecondary,
+                                  height: 1.35,
+                                ),
                           ),
-                    ),
-                    const SizedBox(height: 20),
-                    AppPrimaryButton(
-                      label: 'Escanear',
-                      icon: Icons.qr_code_scanner,
-                      onPressed: () =>
-                          Navigator.pushNamed(context, AppRoutes.scan),
-                    ),
-                    const SizedBox(height: 10),
-                    AppSecondaryButton(
-                      label: 'Busqueda manual',
-                      icon: Icons.search,
-                      onPressed: () =>
-                          Navigator.pushNamed(context, AppRoutes.search),
+                          const SizedBox(height: 20),
+                          AppPrimaryButton(
+                            label: 'Escanear',
+                            icon: Icons.qr_code_scanner,
+                            onPressed: () =>
+                                Navigator.pushNamed(context, AppRoutes.scan),
+                          ),
+                          const SizedBox(height: 10),
+                          AppSecondaryButton(
+                            label: 'Busqueda manual',
+                            icon: Icons.search,
+                            onPressed: () =>
+                                Navigator.pushNamed(context, AppRoutes.search),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

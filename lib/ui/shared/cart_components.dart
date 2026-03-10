@@ -108,7 +108,9 @@ class CartItemCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(color: Theme.of(context).dividerColor),
                     borderRadius: BorderRadius.circular(8),
-                    color: isDark ? AppColors.darkSurfaceMuted : AppColors.lightSurfaceMuted,
+                    color: isDark
+                        ? AppColors.darkSurfaceMuted
+                        : AppColors.lightSurfaceMuted,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -123,7 +125,10 @@ class CartItemCard extends StatelessWidget {
                         child: Text(
                           '$quantity',
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
                                 fontWeight: FontWeight.w700,
                                 color: Theme.of(context).colorScheme.onSurface,
                               ),
@@ -221,10 +226,12 @@ class CartSummaryCard extends StatelessWidget {
         children: [
           Text(
             'Resumen de compra',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+            style:
+                Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
           ),
           const SizedBox(height: 12),
-          _SummaryRow(label: 'Subtotal ($itemCount articulos)', value: subtotal),
+          _SummaryRow(
+              label: 'Subtotal ($itemCount articulos)', value: subtotal),
           const SizedBox(height: 12),
           Divider(color: Theme.of(context).dividerColor),
           const SizedBox(height: 8),

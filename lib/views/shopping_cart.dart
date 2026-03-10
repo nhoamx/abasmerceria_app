@@ -148,11 +148,14 @@ class _ShoppingCartState extends State<ShoppingCart> {
                     children: [
                       ...productosDatos.map((item) {
                         final id = (item['id'] ?? '').toString();
-                        final title = (item['desc'] ?? 'Producto sin descripcion').toString();
+                        final title =
+                            (item['desc'] ?? 'Producto sin descripcion')
+                                .toString();
                         final ref = (item['sku'] ?? '-').toString();
                         final finalPrice = _priceValue(item['lista2']);
-                        final originalPrice =
-                          finalPrice == 0 ? 0.0 : (finalPrice * 1.2).toDouble();
+                        final originalPrice = finalPrice == 0
+                            ? 0.0
+                            : (finalPrice * 1.2).toDouble();
 
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 12),
@@ -174,7 +177,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                         onApply: () {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Codigo promocional aplicado proximamente.'),
+                              content: Text(
+                                  'Codigo promocional aplicado proximamente.'),
                             ),
                           );
                         },

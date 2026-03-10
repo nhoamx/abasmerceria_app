@@ -19,11 +19,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
-  final List<String> _recentSearches = [
-    'Cinta de raso',
-    'CR-25-R',
-    'Hilos poliester'
-  ];
   Future<List<Product>>? _searchFuture;
 
   @override
@@ -58,12 +53,6 @@ class _SearchPageState extends State<SearchPage> {
   void _startSearch([String? value]) {
     final query = (value ?? _searchController.text).trim();
     if (query.isEmpty) return;
-
-    if (!_recentSearches.contains(query)) {
-      setState(() {
-        _recentSearches.insert(0, query);
-      });
-    }
 
     setState(() {
       _searchController.text = query;
@@ -103,42 +92,18 @@ class _SearchPageState extends State<SearchPage> {
       ),
       bottomNavigationBar: AppBottomNav(currentIndex: 1, onTap: _onBottomTap),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         children: [
           SearchInputCard(
             controller: _searchController,
             onSubmit: _startSearch,
             onScan: () => Navigator.pushNamed(context, AppRoutes.scan),
           ),
-          const SizedBox(height: 16),
-          Text(
-            'Busquedas recientes',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-          ),
-          const SizedBox(height: 10),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: _recentSearches
-                .take(6)
-                .map(
-                  (text) => RecentSearchChip(
-                    text: text,
-                    onTap: () => _startSearch(text),
-                  ),
-                )
-                .toList(),
-          ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           if (_searchFuture == null)
             const EmptyStatePlaceholder(
               title: 'Busca productos por SKU o nombre',
-              message:
-                  'Puedes usar una busqueda reciente o escribir una nueva consulta.',
+              message: 'Escribe una consulta para ver resultados de productos.',
               icon: Icons.search,
             )
           else
@@ -169,28 +134,28 @@ class _SearchPageState extends State<SearchPage> {
                   children: [
                     Text(
                       'Resultados (${products.length})',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 14),
                     ...products.asMap().entries.map((entry) {
                       final i = entry.key;
                       final p = entry.value;
                       final price = _price(p.lista2);
-                      final old = _price(p.lista1);
+                      final oldPrice = _price(p.lista1);
 
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.only(bottom: 14),
                         child: SearchResultCard(
                           title: p.desc.isEmpty
                               ? 'Producto sin descripcion'
                               : p.desc,
                           sku: p.sku,
-                          oldPrice: old > 0 ? old : null,
                           price: price,
+                          oldPrice: oldPrice > 0 ? oldPrice : null,
                           imageIcon:
                               i.isEven ? Icons.inventory_2 : Icons.checkroom,
                           onDetail: () => Navigator.pushNamed(
