@@ -159,7 +159,10 @@ class _SearchPageState extends State<SearchPage> {
                           imageIcon:
                               i.isEven ? Icons.inventory_2 : Icons.checkroom,
                           onDetail: () => Navigator.pushNamed(
-                              context, AppRoutes.productDetail),
+                            context,
+                            AppRoutes.productDetail,
+                            arguments: p,
+                          ),
                         ),
                       );
                     }).toList(),

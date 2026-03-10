@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:merceria_app/model/product.dart';
 import 'package:merceria_app/views/home.dart';
 import 'package:merceria_app/views/preferential.dart';
+import 'package:merceria_app/views/product_detail.dart';
 import 'package:merceria_app/views/product_check.dart';
 import 'package:merceria_app/views/search.dart';
 import 'package:merceria_app/views/shopping_cart.dart';
@@ -35,22 +37,27 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case AppRoutes.preferential:
       return MaterialPageRoute(builder: (_) => const PreferentialPage());
     case AppRoutes.productDetail:
-      return MaterialPageRoute(
-          builder: (_) => const _ProductDetailPlaceholderPage());
+      final product = settings.arguments;
+      if (product is Product) {
+        return MaterialPageRoute(
+          builder: (_) => ProductDetailPage(product: product),
+        );
+      }
+      return MaterialPageRoute(builder: (_) => const _ProductDetailFallback());
     default:
       return MaterialPageRoute(builder: (_) => const HomePage());
   }
 }
 
-class _ProductDetailPlaceholderPage extends StatelessWidget {
-  const _ProductDetailPlaceholderPage();
+class _ProductDetailFallback extends StatelessWidget {
+  const _ProductDetailFallback();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Detalle de producto')),
       body: const Center(
-        child: Text('Pantalla de detalle en construccion (Fase E).'),
+        child: Text('Selecciona un producto desde busqueda para ver detalles.'),
       ),
     );
   }
