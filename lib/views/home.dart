@@ -47,34 +47,49 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: double.infinity,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: isDark
-                            ? AppColors.darkLayer
-                            : AppColors.accent.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12),
-                        ),
-                        border:
-                            Border.all(color: Theme.of(context).dividerColor),
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.qr_code_scanner,
-                              color: Theme.of(context).colorScheme.primary,
-                              size: 34,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () =>
+                              Navigator.pushNamed(context, AppRoutes.scan),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(12),
+                            topRight: Radius.circular(12),
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              color: isDark
+                                  ? AppColors.darkLayer
+                                  : AppColors.accent.withValues(alpha: 0.1),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                              ),
+                              border: Border.all(
+                                  color: Theme.of(context).dividerColor),
                             ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Escanea un producto',
-                              style: Theme.of(context).textTheme.bodyMedium,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.qr_code_scanner,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    size: 34,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'Escanea un producto',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ),

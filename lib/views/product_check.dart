@@ -18,6 +18,19 @@ class ProductCheck extends StatefulWidget {
 
 class _ProductCheckState extends State<ProductCheck> {
   String? scanResult;
+  bool _didAutoScan = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Open scanner immediately when entering this screen.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || _didAutoScan) return;
+      _didAutoScan = true;
+      scanBarCode();
+    });
+  }
 
   //Fetch data from api
   Future fetchData(String sku) async {
