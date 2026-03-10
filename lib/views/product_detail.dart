@@ -61,29 +61,43 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   Widget _specRow(IconData icon, String label, String value) {
     final showValue = value.trim().isEmpty ? '-' : value.trim();
+
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 18, color: Theme.of(context).colorScheme.onSurface),
-          const SizedBox(width: 8),
           Expanded(
-            child: RichText(
-              text: TextSpan(
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: 14,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                children: [
-                  TextSpan(
-                    text: '$label ',
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  TextSpan(text: showValue),
-                ],
-              ),
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  size: 18,
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.color
+                      ?.withValues(alpha: 0.9),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  label,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ],
             ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            showValue,
+            textAlign: TextAlign.right,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
           ),
         ],
       ),
@@ -93,9 +107,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     final p = widget.product;
-    final l1 = _priceValue(p.lista1);
-    final l2 = _priceValue(p.lista2);
-    final l3 = _priceValue(p.lista3);
+    final unitPrice = _priceValue(p.lista1);
 
     return Scaffold(
       appBar: AppBar(
@@ -107,119 +119,167 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           'Detalle de Producto',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
-        centerTitle: false,
       ),
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+                padding: EdgeInsets.zero,
                 children: [
                   Container(
-                    height: 220,
+                    width: double.infinity,
+                    height: 300,
                     decoration: BoxDecoration(
                       color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Theme.of(context).dividerColor),
+                      border: Border(
+                        bottom:
+                            BorderSide(color: Theme.of(context).dividerColor),
+                      ),
                     ),
-                    child: Stack(
+                    child: const Center(
+                      child: Icon(
+                        Icons.image_outlined,
+                        size: 64,
+                        color: Color(0xFF94A3B8),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Align(
-                          alignment: Alignment.center,
-                          child: Icon(Icons.image_outlined,
-                              size: 56, color: Color(0xFF94A3B8)),
+                        Text(
+                          'SKU: ${p.sku.isEmpty ? '-' : p.sku}',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                         ),
-                        Positioned(
-                          top: 12,
-                          right: 12,
-                          child: Container(
-                            width: 36,
-                            height: 36,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: const Icon(Icons.favorite_border,
-                                size: 20, color: Color(0xFF475467)),
+                        const SizedBox(height: 12),
+                        Text(
+                          p.desc.isEmpty ? 'Producto sin descripcion' : p.desc,
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    fontSize: 22,
+                                    height: 1.15,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        const SizedBox(height: 18),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                                color: Theme.of(context).dividerColor),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Precio unitario',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    _money(unitPrice),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                          fontSize: 44,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.accent,
+                                          height: 0.98,
+                                        ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 7),
+                                    child: Text(
+                                      '/ unidad',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 22),
+                        Text(
+                          'Especificaciones',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                        ),
+                        const SizedBox(height: 14),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                                color: Theme.of(context).dividerColor),
+                          ),
+                          child: Column(
+                            children: [
+                              _specRow(Icons.tag, 'Numero', p.numero),
+                              Divider(
+                                height: 1,
+                                color: Theme.of(context).dividerColor,
+                              ),
+                              _specRow(Icons.straighten, 'Talla', p.tamano),
+                              Divider(
+                                height: 1,
+                                color: Theme.of(context).dividerColor,
+                              ),
+                              _specRow(
+                                  Icons.palette_outlined, 'Colores', p.colores),
+                              Divider(
+                                height: 1,
+                                color: Theme.of(context).dividerColor,
+                              ),
+                              _specRow(
+                                  Icons.category_outlined, 'Unidad', p.unidad),
+                              Divider(
+                                height: 1,
+                                color: Theme.of(context).dividerColor,
+                              ),
+                              _specRow(
+                                Icons.inventory_2_outlined,
+                                'Empaque',
+                                p.empaque,
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'SKU: ${p.sku.isEmpty ? '-' : p.sku}',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                  const SizedBox(height: 10),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFD1FAE5),
-                      borderRadius: BorderRadius.circular(999),
-                    ),
-                    child: const Text(
-                      'En stock',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF065F46),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    p.desc.isEmpty ? 'Producto sin descripcion' : p.desc,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontSize: 32,
-                          height: 1.08,
-                          fontWeight: FontWeight.w800,
-                        ),
-                  ),
-                  const SizedBox(height: 18),
-                  Text(
-                    'Precio Preferencial (Lista 1) ${_money(l1)} / unidad',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Precio Mayoreo (Lista 2) ${_money(l2)}',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Precio Publico (Lista 3) ${_money(l3)}',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                  const SizedBox(height: 22),
-                  Text(
-                    'Especificaciones',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                  ),
-                  const SizedBox(height: 14),
-                  _specRow(Icons.tag, 'Numero', p.numero),
-                  _specRow(Icons.straighten, 'Tamano', p.tamano),
-                  _specRow(Icons.palette_outlined, 'Colores', p.colores),
-                  _specRow(Icons.category_outlined, 'Unidad', p.unidad),
-                  _specRow(Icons.inventory_2_outlined, 'Empaque', p.empaque),
                 ],
               ),
             ),
@@ -273,12 +333,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       child: ElevatedButton.icon(
                         onPressed: _addToCart,
                         icon: const Icon(Icons.shopping_cart_outlined),
-                        label: const Text('Agregar al carrito'),
+                        label: const Text(
+                          'Agregar al carrito',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.accent,
                           foregroundColor: Colors.white,
                           textStyle: const TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                             fontWeight: FontWeight.w700,
                           ),
                           shape: RoundedRectangleBorder(
