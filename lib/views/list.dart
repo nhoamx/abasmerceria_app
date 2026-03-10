@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:merceria_app/card.dart';
+import 'package:merceria_app/config/api_endpoints.dart';
 import 'package:merceria_app/productos_data.dart';
 
 import 'dart:async';
@@ -32,8 +33,7 @@ class _MyAppState extends State<MyApp> {
   //Fetch data from api
   Future fetchData() async {
     http.Response response;
-    response = await http.get(
-        Uri.parse('https://abamerceria.clustermx.com/busqueda-sku?sku=823134'),
+    response = await http.get(ApiEndpoints.searchProductBySku(sku: '823134'),
         headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
