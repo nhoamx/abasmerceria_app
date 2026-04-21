@@ -66,5 +66,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+	</array>
+
+	<key>NSCameraUsageDescription</key>
+	<string>Esta app usa la cámara para escanear códigos de barras.</string>
 </dict>
 </plist>
