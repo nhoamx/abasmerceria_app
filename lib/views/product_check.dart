@@ -1,13 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:flutter_barcode_scanner_plus/flutter_barcode_scanner_plus.dart';
 import 'package:merceria_app/config/api_endpoints.dart';
 import 'package:merceria_app/model/product.dart';
 import 'package:merceria_app/ui/card-store.dart';
+import 'package:merceria_app/views/barcode_scanner_page.dart';
 
 class ProductCheck extends StatefulWidget {
   const ProductCheck({Key? key}) : super(key: key);
@@ -59,15 +57,13 @@ class _ProductCheckState extends State<ProductCheck> {
 
   //Scan Bar code
   Future scanBarCode() async {
-    String scanResult;
+    final scanResult = await Navigator.of(context).push<String>(
+      MaterialPageRoute(
+        builder: (_) => const BarcodeScannerPage(),
+      ),
+    );
 
-    try {
-      scanResult = await FlutterBarcodeScanner.scanBarcode(
-          "#FF6666", "Cancelar", true, ScanMode.BARCODE);
-    } on PlatformException {
-      scanResult = "Failed to get platform Version";
-    }
-    if (!mounted) return;
+    if (!mounted || scanResult == null) return;
 
     setState(() => this.scanResult = scanResult);
   }

@@ -1,15 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:merceria_app/card.dart';
 import 'package:merceria_app/config/api_endpoints.dart';
 import 'package:merceria_app/productos_data.dart';
+import 'package:merceria_app/views/barcode_scanner_page.dart';
 
-import 'dart:async';
 import 'package:http/http.dart' as http;
-
-import 'package:flutter_barcode_scanner_plus/flutter_barcode_scanner_plus.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +18,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   String? scanResult;
   String? stringResponse;
   List<Map<String, dynamic>> value = [];
@@ -46,17 +44,16 @@ class _MyAppState extends State<MyApp> {
 
   //Scan Bar code
   Future scanBarCode() async {
-    String scanResult;
+    final navigator = _navigatorKey.currentState;
+    if (navigator == null) return;
 
-    try {
-      scanResult = await FlutterBarcodeScanner.scanBarcode(
-          "#FF6666", "Cancelar", true, ScanMode.BARCODE);
-      // debugPrint(scanResult);
-    } on PlatformException {
-      scanResult = "Failed to get platform Version";
-    }
+    final scanResult = await navigator.push<String>(
+      MaterialPageRoute(
+        builder: (_) => const BarcodeScannerPage(),
+      ),
+    );
 
-    if (!mounted) return;
+    if (!mounted || scanResult == null) return;
 
     setState(() => this.scanResult = scanResult);
   }
@@ -66,6 +63,7 @@ class _MyAppState extends State<MyApp> {
     var productoData = ProductoData.getData;
 
     return MaterialApp(
+        navigatorKey: _navigatorKey,
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
